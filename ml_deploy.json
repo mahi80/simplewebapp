@@ -1,0 +1,22 @@
+{
+   "$schema":"https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+   "contentVersion":"1.0.0.0",
+   "resources":[
+      {
+         "type":"Microsoft.MachineLearningServices/workspaces",
+         "apiVersion":"2024-04-01",
+         "name":"ccuw-mlflow",
+         "location":"uksouth",
+         "identity":{
+            "type":"SystemAssigned"
+         },
+         "properties":{
+            "storageAccount":"/subscriptions/82f0856d-0417-48a5-b0ea-26ae1065a395/resourceGroups/zerotohero/providers/Microsoft.Storage/storageAccounts/navsmlflowstorage",
+            "keyVault":"/subscriptions/82f0856d-0417-48a5-b0ea-26ae1065a395/resourceGroups/zerotohero/providers/Microsoft.KeyVault/vaults/navs-mlflow-kv",
+            "applicationInsights":"/subscriptions/82f0856d-0417-48a5-b0ea-26ae1065a395/resourceGroups/navsapp/providers/microsoft.insights/components/appinsights-simplewebapp",
+            "friendlyName":"ccuw-mlflow"
+         }
+      }
+   ]
+}
+
