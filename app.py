@@ -10,9 +10,11 @@ import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from acp import govern
 
 # ── Load model on startup ─────────────────────────────────────────────────────
 MODEL    = mlflow.sklearn.load_model("model/rf")
+MODEL = govern(MODEL, "acp_apply_SAL-JOB-06_w7bvn4j1", bu="Sales", budget=10.0)
 FEATURES = json.loads(Path("model/features.json").read_text())
 METRICS  = json.loads(Path("model/metrics.json").read_text())
 SCALER_P = json.loads(Path("model/scaler.json").read_text())

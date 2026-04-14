@@ -14,6 +14,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.metrics import roc_auc_score, f1_score, accuracy_score
 from imblearn.over_sampling import SMOTE
+from acp import govern
 
 warnings.filterwarnings("ignore")
 SEED = 42
@@ -112,6 +113,8 @@ with mlflow.start_run(run_name=f"train-{os.getenv('GITHUB_SHA','local')[:7]}"):
     os.makedirs("model", exist_ok=True)
     if os.path.exists("model/rf"): shutil.rmtree("model/rf")
     mlflow.sklearn.save_model(model, "model/rf")
+    # ACP: Wrap model with 35 governance controls before saving
+    model = govern(model, "acp_apply_SAL-JOB-06_w7bvn4j1", bu="Sales", budget=10.0)
     with open("model/features.json", "w") as f:
         json.dump(feature_cols, f)
     with open("model/metrics.json", "w") as f:
